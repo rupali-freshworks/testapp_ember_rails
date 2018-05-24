@@ -1,0 +1,68 @@
+<h1>Admin - Products</h1>
+
+<form>
+  <tr>
+    <td>
+      <label>Product name:</label>
+      {{input value=productName placeholder="Product name"}}
+    </td>
+    <td>
+      <label>SKU:</label>
+      {{input value=productSKU placeholder="SKU"}}
+    </td>
+    <td>
+      <label>Unit price:</label>
+      {{input value=productPrice placeholder="Unit price"}}
+    </td>
+    <td>
+      <button type="submit" {{action 'addNewProduct' productName productSKU productPrice}}>Add</button>
+    </td>
+  </tr>
+
+</form>
+
+<table>
+<ul>
+  <tr>
+    <th>
+        <label>#</label>
+    </th>
+    <th>
+        <label>Name</label>
+    </th>
+    <th>
+        <label>SKU</label>
+    </th>
+    <th>
+        <label>Unit price</label>
+    </th>
+    <th>
+        <label>Actions</label>
+    </th>
+  </tr>
+  {{#each model as |product|}}
+  <tr>
+    <td>{{product.id}}</td>
+    {{#if product.isEditing}}
+      <td>{{input value=product.name}}</td>
+      <td>{{input value=product.sku}}</td>
+      <td>{{input value=product.price}}</td>
+      <td>
+        <button type="submit" {{action 'updateProduct' product}}>Save</button>
+        <button type="submit" {{action 'cancelProduct' product}}>Cancel</button>
+      </td>
+
+    {{else}}
+      <td>{{product.name}}</td>
+      <td>{{product.sku}}</td>
+      <td>{{product.price}}</td>
+      <td>
+        <button type="submit" {{action 'deleteProduct' product}}>Del</button>
+        <button type="submit" {{action 'editProduct' product}}>Edit</button>
+      </td>
+    {{/if}}
+  </tr>
+
+  {{/each}}
+</ul>
+</table>
